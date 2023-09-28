@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.16'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id "com.microsoft.azure.azurewebapp" version "1.7.1"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+azurewebapp {
+    subscription = '75476bbb-0d81-44ca-ac60-0a188ec52b60'
+    resourceGroup = 'team_management_db'
+    appName = 'team-management'
+    region = 'westus'
+    runtime {
+        os = 'Linux'
+        webContainer = 'Tomcat 10.0'
+        javaVersion = 'Java 17'
+    }
+    appSettings {
+        DatabaseConnectionString = "jdbc:mysql:teammanagment.database.windows.net:3306/team-management-database?serverTimezone=Europe/Warsaw&allowPublicKeyRetrieval=true&useSSL=False"
+        DatabaseUsername = "iucqvjfgri"
+        DatabasePassword = "KOM2H32546EEL261\$"
+    }
+    auth {
+    }
+}
